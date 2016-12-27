@@ -1,36 +1,48 @@
 # Rabbitamer
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/rabbitamer`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Rabbitamer is a Rack middleware which (for now) can send messages to RabbitMQ's named queues. Uses `bunny` Ruby client.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'rabbitamer'
+gem 'rabbitamer', github: 'aavoyants/rabbitamer'
 ```
 
 And then execute:
 
     $ bundle
 
-Or install it yourself as:
-
-    $ gem install rabbitamer
-
 ## Usage
 
-TODO: Write usage instructions here
+Just add to `config.ru`:
 
-## Development
+```ruby
+use Rabbitamer::Middleware, 'send', queue: 'queue-name'
+```
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+If there is no `message` parameter the whole request will be used as a message. To send something different you can use:
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+```ruby
+use Rabbitamer::Middleware, 'send', queue: 'queue-name', message: 'message-text'
+```
+or
 
-## Contributing
+```ruby
+use Rabbitamer::Middleware, 'send', queue: 'queue-name', message: Proc.new { ... }
+```
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/rabbitamer. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Also you can configure `bunny` connection options addind the `rabbitamer.rb` to `initializers` folder:
 
+```ruby
+Rabbitamer.configure do |config|
+  config.connection = { host: 'host', port: 'port', ... }
+end
+```
+
+All parameters you can find [here](http://rubybunny.info/articles/connecting.html#using_a_map_of_parameters).
+
+## TODO
+
+Implement `read` queue method.
