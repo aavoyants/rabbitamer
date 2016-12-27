@@ -14,7 +14,6 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/aavoyants/rabbitamer/"
   spec.license       = 'MIT'
 
-
   spec.files         = Dir['lib/**/*.rb']
   spec.require_paths = ["lib"]
 
