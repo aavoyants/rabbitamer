@@ -2,7 +2,7 @@ module Rabbitamer
   class Connection
     class << self
       def init
-        @connection = Bunny.new
+        @connection = Bunny.new(Rabbitamer.configuration.connection)
         @connection.start
       end
 
