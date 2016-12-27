@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Anatoly Avoyants"]
   spec.email         = ["aavoyants@gmail.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
+  spec.summary       = 'Sending/receiving AMQP messages'
+  spec.description   = 'Rack middleware for sending and receiving messages to RabbitMQ using bunny'
   spec.homepage      = "https://github.com/aavoyants/rabbitamer/"
   spec.license       = 'MIT'
 
