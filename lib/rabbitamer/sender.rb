@@ -1,9 +1,14 @@
 module Rabbitamer
   class Sender
-    def self.call(params)
+    def self.call
       channel = Connection.create_channel
-      queue = channel.queue(params[:queue], durable: true, auto_delete: false)
-      queue.publish(params[:message], persistent: true)
+      message = Rabbitamer.configuration.message || Rabbitamer::Middleware.env
+      queue_name = Rabbitamer.configuration.queue
+
+      if queue_name
+        queue = channel.queue(queue_name, durable: true, auto_delete: false)
+        queue.publish(message, persistent: true)
+      end
     end
   end
 end
