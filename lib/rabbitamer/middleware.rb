@@ -5,7 +5,7 @@ module Rabbitamer
     def call(env)
       @params.merge!({ message: env.to_json }) unless @params[:message]
 
-      methods.each do |method|
+      @methods.each do |method|
         instance_eval(method) if AVAILABLE_METHODS.include?(method)
       end
 
