@@ -5,6 +5,7 @@ require "rabbitamer/version"
 require "rabbitamer/sender"
 require "rabbitamer/configuration"
 require "rabbitamer/connection"
+require "rabbitamer/middleware"
 
 module Rabbitamer
   class << self
@@ -17,4 +18,3 @@ module Rabbitamer
   end
 end
 
-require "rabbitamer/middleware"
