@@ -1,12 +1,12 @@
 module Rabbitamer
   class Middleware
-    def call(env)
-      if !!@method
-        @params.merge!({ message: env.to_json }) unless @params[:message]
+    AVAILABLE_METHODS = ['send', 'receive']
 
-        Connection.init
-        instance_eval(@method)
-        Connection.close
+    def call(env)
+      @params.merge!({ message: env.to_json }) unless @params[:message]
+
+      methods.each do |method|
+        instance_eval(method) if AVAILABLE_METHODS.include?(method)
       end
 
       @app.call(env)
@@ -14,14 +14,16 @@ module Rabbitamer
 
   private
 
-    def initialize(app, method, params = {})
+    def initialize(app, methods = [], params = {})
       @app = app
-      @method = method
+      @methods = methods
       @params = params
     end
 
     def send
+      Connection.init
       Sender.call(@params)
+      Connection.close
     end
 
     def receive
