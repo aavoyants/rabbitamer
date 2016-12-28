@@ -7,7 +7,7 @@ module Rabbitamer
     AVAILABLE_METHODS = ['send', 'receive']
 
     def call(env)
-      self.class.env = env.to_json
+      self.class.env = env
 
       @methods.each do |method|
         instance_eval(method) if AVAILABLE_METHODS.include?(method)

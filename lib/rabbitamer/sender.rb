@@ -7,7 +7,7 @@ module Rabbitamer
 
       if queue_name
         queue = channel.queue(queue_name, durable: true, auto_delete: false)
-        queue.publish(message, persistent: true)
+        queue.publish(message.to_json, persistent: true)
       end
     end
   end
