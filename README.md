@@ -19,30 +19,23 @@ And then execute:
 Just add to `config.ru`:
 
 ```ruby
-use Rabbitamer::Middleware, ['send'], queue: 'queue-name'
+use Rabbitamer::Middleware
 ```
 
-First param is methods list you want your app to call. For now it's only 'send' and 'receive' (and 'receive' is not implemented yet). Second param is a Hash with 'queue' and 'message' params. If there is no `message` parameter the whole request will be used as a message. To send something different you can use:
-
-```ruby
-use Rabbitamer::Middleware, ['send'], queue: 'queue-name', message: 'message-text'
-```
-or
-
-```ruby
-use Rabbitamer::Middleware, ['send'], queue: 'queue-name', message: Proc.new { ... }
-```
-
-Also you can configure `bunny` connection options addind the `rabbitamer.rb` to `initializers` folder:
+You have to configure `rabbitamer` by addind the `rabbitamer.rb` to `initializers` folder:
 
 ```ruby
 Rabbitamer.configure do |config|
-  config.connection = { host: 'host', port: 'port', ... }
+  config.connection = { host: 'host', port: 'port', ... } # bunny connections settings, optional
+  config.methods = ['send'] # mandatory: methods you want your app to call (also responds to 'receive', not implemented yet)
+  config.message = 'message' # mandatory: message text or your method (or proc) returning the message text
+  config.queue = 'queue-name' # mandatory: queue name
 end
 ```
 
-All parameters you can find [here](http://rubybunny.info/articles/connecting.html#using_a_map_of_parameters).
+If there is no `message` parameter the whole request will be used as a message.
+All `bunny` connection parameters you can find [here](http://rubybunny.info/articles/connecting.html#using_a_map_of_parameters).
 
 ## TODO
 
-Implement `read` queue method.
+Implement `receive` queue method.
