@@ -19,6 +19,7 @@ module Rabbitamer
   private
 
     def initialize(app)
+      Rabbitamer.configure {} unless Rabbitamer.configuration
       @app = app
       @actions = Rabbitamer.configuration.actions
     end
