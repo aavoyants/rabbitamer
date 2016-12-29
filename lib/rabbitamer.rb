@@ -1,4 +1,5 @@
 require 'bunny'
+require 'json'
 
 require "rabbitamer/version"
 

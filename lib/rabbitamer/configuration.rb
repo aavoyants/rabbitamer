@@ -1,10 +1,10 @@
 module Rabbitamer
   class Configuration
-    attr_accessor :connection, :methods, :message, :queue
+    attr_accessor :connection, :actions, :message, :queue
 
     def initialize
       @connection = {}
-      @methods = []
+      @actions = []
     end
   end
 end

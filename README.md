@@ -27,7 +27,7 @@ You have to configure `rabbitamer` by addind the `rabbitamer.rb` to `initializer
 ```ruby
 Rabbitamer.configure do |config|
   config.connection = { host: 'host', port: 'port', ... } # bunny connections settings, optional
-  config.methods = ['send'] # mandatory: methods you want your app to call
+  config.actions = ['send'] # mandatory: actions you want your app to call
   config.message = 'message' # mandatory: message text or your method (or proc) returning the message text
   config.queue = 'queue-name' # mandatory: queue name
 end
@@ -35,8 +35,8 @@ end
 
 If there is no `message` parameter the whole request will be used as a message.
 All `bunny` connection parameters you can find [here](http://rubybunny.info/articles/connecting.html#using_a_map_of_parameters).
-Gem responds to only 'send' and 'receive' methods (`methods` param), but 'receive' is not implemented.
+Gem responds to only 'send' and 'receive' actions (`actions` param), but 'receive' is not implemented.
 
 ## TODO
 
-Implement `receive` queue method.
+Implement `receive` queue action.
