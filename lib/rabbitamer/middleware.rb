@@ -4,13 +4,13 @@ module Rabbitamer
       attr_accessor :env
     end
 
-    AVAILABLE_METHODS = ['send', 'receive']
+    AVAILABLE_ACTIONS = ['send', 'receive']
 
     def call(env)
       self.class.env = env
 
-      @methods.each do |method|
-        instance_eval(method) if AVAILABLE_METHODS.include?(method)
+      @actions.each do |action|
+        instance_eval(action) if AVAILABLE_ACTIONS.include?(action)
       end
 
       @app.call(env)
@@ -20,7 +20,7 @@ module Rabbitamer
 
     def initialize(app)
       @app = app
-      @methods = Rabbitamer.configuration.methods
+      @actions = Rabbitamer.configuration.actions
     end
 
     def send
