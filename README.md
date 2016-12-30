@@ -28,7 +28,7 @@ You have to configure `rabbitamer` by addind the `rabbitamer.rb` to `initializer
 Rabbitamer.configure do |config|
   config.connection = { host: 'host', port: 'port', ... } # bunny connections settings, optional
   config.actions = ['send'] # mandatory: actions you want your app to call
-  config.message = 'message' # mandatory: message text or your method (or proc) returning the message text
+  config.message = 'message' # optional: message text or your method (or proc) returning the message text
   config.queue = 'queue-name' # mandatory: queue name
 end
 ```
