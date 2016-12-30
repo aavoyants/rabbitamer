@@ -28,6 +28,8 @@ module Rabbitamer
       Connection.init
       Sender.call
       Connection.close
+    rescue
+      # TODO
     end
 
     def receive
